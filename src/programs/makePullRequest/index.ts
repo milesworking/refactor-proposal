@@ -17,7 +17,7 @@ import {prepareWorkspace} from '../remoteIntern/workspace/prepare'
 import { EventPayloadMap } from 'packages/github/dist/vendor/webhookType'
 import { writeFileSync } from 'fs'
 import { CheckRun } from './handlers/CheckRun'
-import { EventHandler } from './handlers/Handler'
+import { Handler } from './handlers/Handler'
 
 // ...previous code irrelevant to proposal
 
@@ -30,7 +30,8 @@ async function handleGitHubEvents(context: Context<any, any>, event: WebhookEven
     }
 
     const githubApi = await getClientByWebhook(data)
-    const handlers: EventHandler[] = [
+    /* NEW */
+    const handlers: Handler[] = [
       new CheckRun(githubApi, context), 
       new Issues(githubApi, context),
       new Comment(githubApi, context),
